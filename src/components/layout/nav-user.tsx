@@ -29,28 +29,29 @@ type NavUserProps = {
 }
 
 export function NavUser({ user }: NavUserProps) {
-  const { isMobile } = useSidebar()
+  const { isMobile, state } = useSidebar()
+  const isCollapsed = state === 'collapsed'
   const [open, setOpen] = useDialogState()
 
   return (
     <>
-      <SidebarMenu>
-        <SidebarMenuItem>
+      <SidebarMenu className={isCollapsed ? 'items-center' : ''}>
+        <SidebarMenuItem className={isCollapsed ? 'flex justify-center' : ''}>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton
                 size='lg'
-                className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
+                className={`data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground ${isCollapsed ? 'justify-center !p-0' : ''}`}
               >
-                <Avatar className='h-8 w-8 rounded-lg'>
+                <Avatar className={`rounded-lg ${isCollapsed ? 'h-10 w-10' : 'h-8 w-8'}`}>
                   <AvatarImage src={user.avatar} alt={user.name} />
                   <AvatarFallback className='rounded-lg'>AD</AvatarFallback>
                 </Avatar>
-                <div className='grid flex-1 text-start text-sm leading-tight'>
+                <div className='grid flex-1 text-start text-sm leading-tight group-data-[collapsible=icon]:hidden'>
                   <span className='truncate font-semibold'>{user.name}</span>
                   <span className='truncate text-xs'>{user.email}</span>
                 </div>
-                <ChevronsUpDown className='ms-auto size-4' />
+                <ChevronsUpDown className='ms-auto size-4 group-data-[collapsible=icon]:hidden' />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent

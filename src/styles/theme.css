@@ -1,40 +1,40 @@
 :root {
   --radius: 1.5rem;
   
-  /* Light Mode - Ultra Clean & Airy */
-  --background: oklch(0.99 0.002 186); /* Hampir putih, sangat bersih */
-  --foreground: oklch(0.18 0.02 186);   /* Teks utama yang lembut di mata */
+  /* Light Mode - Clinical & Airy */
+  /* Putih dengan sedikit tint dari warna logo agar selaras */
+  --background: oklch(0.99 0.004 185.93); 
+  --foreground: oklch(0.18 0.04 185.93); 
   
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.02 186);
+  --card-foreground: oklch(0.18 0.04 185.93);
   
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.02 186);
+  --popover-foreground: oklch(0.18 0.04 185.93);
   
   /* Primary - Warna Logo Anda */
   --primary: oklch(65.823% 0.11551 185.93); 
-  --primary-foreground: oklch(0.99 0.01 186);
+  --primary-foreground: oklch(0.99 0.01 185.93);
   
-  /* Secondary & Muted - Dibuat sangat subtle */
-  --secondary: oklch(0.97 0.005 186);
-  --secondary-foreground: oklch(0.3 0.03 186);
+  --secondary: oklch(0.96 0.015 185.93);
+  --secondary-foreground: oklch(0.35 0.06 185.93);
   
-  --muted: oklch(0.97 0.005 186);
-  --muted-foreground: oklch(0.55 0.02 186);
+  --muted: oklch(0.96 0.01 185.93);
+  --muted-foreground: oklch(0.5 0.03 185.93);
   
-  --accent: oklch(0.95 0.01 186);
+  --accent: oklch(0.93 0.025 185.93);
   --accent-foreground: var(--primary);
   
-  --destructive: oklch(0.55 0.15 25);
-  --border: oklch(0.93 0.005 186); /* Border tipis & clean */
-  --input: oklch(0.93 0.005 186);
-  --ring: oklch(65.823% 0.11551 185.93 / 0.1);
+  --destructive: oklch(0.6 0.18 25);
+  --border: oklch(0.91 0.015 185.93); 
+  --input: oklch(0.91 0.015 185.93);
+  --ring: oklch(65.823% 0.11551 185.93 / 0.12);
 
   --chart-1: var(--primary);
-  --chart-2: oklch(0.55 0.1 200);
-  --chart-3: oklch(0.45 0.12 186);
-  --chart-4: oklch(0.8 0.08 186);
-  --chart-5: oklch(0.9 0.05 186);
+  --chart-2: oklch(0.5 0.12 210);
+  --chart-3: oklch(0.65 0.1 160);
+  --chart-4: oklch(0.8 0.08 185.93);
+  --chart-5: oklch(0.9 0.04 185.93);
 
   --loadingscreen: var(--primary);
 
@@ -49,31 +49,33 @@
 }
 
 .dark {
-  /* Dark Mode - Sleek & Deep */
-  --background: oklch(0.12 0.01 186); /* Deep matte, bukan hitam pekat */
-  --foreground: oklch(0.96 0.01 186);
+  /* Dark Mode - Deep Midnight (Bukan Hitam Pekat) */
+  /* Menggunakan Lightness 14% agar tetap gelap tapi bertekstur */
+  --background: oklch(0.14 0.02 185.93); 
+  --foreground: oklch(0.94 0.01 185.93);
   
-  --card: oklch(0.15 0.015 186);
-  --card-foreground: oklch(0.96 0.01 186);
+  --card: oklch(0.17 0.025 185.93);
+  --card-foreground: oklch(0.94 0.01 185.93);
   
-  --popover: oklch(0.15 0.015 186);
-  --popover-foreground: oklch(0.96 0.01 186);
+  --popover: oklch(0.17 0.025 185.93);
+  --popover-foreground: oklch(0.94 0.01 185.93);
   
-  --primary: oklch(72% 0.1 186); /* Diperhalus agar tidak terlalu menusuk di gelap */
-  --primary-foreground: oklch(0.12 0.01 186);
+  /* Primary tetap sama namun terlihat lebih bercahaya di bg gelap */
+  --primary: oklch(65.823% 0.11551 185.93); 
+  --primary-foreground: oklch(0.14 0.02 185.93);
   
-  --secondary: oklch(0.18 0.02 186);
+  --secondary: oklch(0.2 0.03 185.93);
   --secondary-foreground: var(--foreground);
   
-  --muted: oklch(0.18 0.02 186);
-  --muted-foreground: oklch(0.6 0.02 186);
+  --muted: oklch(0.2 0.03 185.93);
+  --muted-foreground: oklch(0.6 0.03 185.93);
   
-  --accent: oklch(0.2 0.025 186);
+  --accent: oklch(0.24 0.035 185.93);
   --accent-foreground: var(--foreground);
   
-  --border: oklch(0.2 0.015 186);
-  --input: oklch(0.2 0.015 186);
-  --ring: oklch(72% 0.1 186 / 0.2);
+  --border: oklch(0.22 0.02 185.93);
+  --input: oklch(0.22 0.02 185.93);
+  --ring: oklch(65.823% 0.11551 185.93 / 0.25);
 }
 
 @theme inline {

@@ -34,11 +34,13 @@ import {
 
 export function NavGroup({ items }: NavGroupProps) {
   const { state, isMobile } = useSidebar()
+  const isCollapsed = state === 'collapsed'
   const location = useLocation()
   const href = location.pathname + location.search
+
   return (
-    <SidebarGroup>
-      <SidebarMenu>
+    <SidebarGroup className={isCollapsed ? 'items-center' : ''}>
+      <SidebarMenu className={isCollapsed ? 'items-center gap-2' : 'gap-1'}>
         {items.map((item) => {
           const key = `${item.title}-${item.url}`
 
@@ -62,18 +64,27 @@ function NavBadge({ children }: { children: ReactNode }) {
 }
 
 function SidebarMenuLink({ item, href }: { item: NavLink; href: string }) {
-  const { setOpenMobile } = useSidebar()
+  const { setOpenMobile, state } = useSidebar()
+  const isCollapsed = state === 'collapsed'
+
   return (
-    <SidebarMenuItem>
+    <SidebarMenuItem className={isCollapsed ? 'flex justify-center' : ''}>
       <SidebarMenuButton
         asChild
         isActive={checkIsActive(href, item)}
         tooltip={item.title}
+        className={isCollapsed ? '!p-0 justify-center items-center' : ''}
       >
-        <Link to={item.url} onClick={() => setOpenMobile(false)}>
-          {item.icon && <item.icon />}
-          <span>{item.title}</span>
-          {item.badge && <NavBadge>{item.badge}</NavBadge>}
+        <Link 
+          to={item.url} 
+          onClick={() => setOpenMobile(false)}
+          className={isCollapsed ? 'justify-center items-center !p-0' : ''}
+        >
+          {item.icon && (
+            <item.icon className={isCollapsed ? 'size-7' : ''} />
+          )}
+          <span className='group-data-[collapsible=icon]:hidden'>{item.title}</span>
+          {item.badge && <NavBadge className='group-data-[collapsible=icon]:hidden'>{item.badge}</NavBadge>}
         </Link>
       </SidebarMenuButton>
     </SidebarMenuItem>
@@ -87,20 +98,27 @@ function SidebarMenuCollapsible({
   item: NavCollapsible
   href: string
 }) {
-  const { setOpenMobile } = useSidebar()
+  const { setOpenMobile, state } = useSidebar()
+  const isCollapsed = state === 'collapsed'
+
   return (
     <Collapsible
       asChild
       defaultOpen={checkIsActive(href, item, true)}
       className='group/collapsible'
     >
-      <SidebarMenuItem>
+      <SidebarMenuItem className={isCollapsed ? 'flex justify-center' : ''}>
         <CollapsibleTrigger asChild>
-          <SidebarMenuButton tooltip={item.title}>
-            {item.icon && <item.icon />}
-            <span>{item.title}</span>
-            {item.badge && <NavBadge>{item.badge}</NavBadge>}
-            <ChevronRight className='ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 rtl:rotate-180' />
+          <SidebarMenuButton 
+            tooltip={item.title}
+            className={isCollapsed ? '!p-0 justify-center items-center' : ''}
+          >
+            {item.icon && (
+              <item.icon className={isCollapsed ? 'size-7' : ''} />
+            )}
+            <span className='group-data-[collapsible=icon]:hidden'>{item.title}</span>
+            {item.badge && <NavBadge className='group-data-[collapsible=icon]:hidden'>{item.badge}</NavBadge>}
+            <ChevronRight className='ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 rtl:rotate-180 group-data-[collapsible=icon]:hidden' />
           </SidebarMenuButton>
         </CollapsibleTrigger>
         <CollapsibleContent className='CollapsibleContent'>
@@ -134,17 +152,17 @@ function SidebarMenuCollapsedDropdown({
   href: string
 }) {
   return (
-    <SidebarMenuItem>
+    <SidebarMenuItem className='flex justify-center'>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <SidebarMenuButton
             tooltip={item.title}
             isActive={checkIsActive(href, item)}
+            className='!p-0 justify-center items-center'
           >
-            {item.icon && <item.icon />}
-            <span>{item.title}</span>
-            {item.badge && <NavBadge>{item.badge}</NavBadge>}
-            <ChevronRight className='ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
+            {item.icon && <item.icon className='size-7' />}
+            <span className='hidden'>{item.title}</span>
+            {item.badge && <span className='hidden'>{item.badge}</span>}
           </SidebarMenuButton>
         </DropdownMenuTrigger>
         <DropdownMenuContent side='right' align='start' sideOffset={4}>
