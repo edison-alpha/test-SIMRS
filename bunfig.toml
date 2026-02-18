@@ -1,0 +1,28 @@
+# Bun Configuration File
+# https://bun.sh/docs/runtime/bunfig
+
+[install]
+# Use the default registry
+registry = "https://registry.npmjs.org"
+
+[install.cache]
+# Disable the global cache
+disable = false
+
+[run]
+# Auto-install dependencies when running scripts
+auto-install = true
+
+[test]
+# Test coverage settings
+coverage = true
+
+[build]
+# Build output directory
+outdir = "./dist"
+
+[loader]
+# Load .css files as text
+".css" = "text"
+".scss" = "text"
+".sass" = "text"

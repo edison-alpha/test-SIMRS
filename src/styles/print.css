@@ -1,0 +1,196 @@
+/**
+ * Print Stylesheet for SIMRS
+ * Implements Requirement 4.3: Print functionality
+ * - Format data in printable layout
+ * - Add hospital header and timestamp
+ * - Support printing patient list and individual patient detail
+ */
+
+@media print {
+  /* Hide non-printable elements */
+  header,
+  nav,
+  .no-print,
+  button:not(.print-only),
+  [role="dialog"] > div:first-child, /* Dialog overlay */
+  .dialog-close-button,
+  .action-buttons:not(.print-only) {
+    display: none !important;
+  }
+
+  /* Reset page layout */
+  body {
+    margin: 0;
+    padding: 0;
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+  }
+
+  /* Page setup */
+  @page {
+    size: A4;
+    margin: 1.5cm 1cm;
+  }
+
+  /* Print container */
+  .print-container {
+    display: block !important;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hospital header */
+  .print-header {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000;
+  }
+
+  .print-header h1 {
+    font-size: 18pt;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+  }
+
+  .print-header p {
+    font-size: 10pt;
+    margin: 2px 0;
+  }
+
+  /* Print title */
+  .print-title {
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px 0;
+    text-transform: uppercase;
+  }
+
+  /* Print metadata */
+  .print-metadata {
+    font-size: 9pt;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Patient detail sections */
+  .print-section {
+    margin-bottom: 20px;
+    page-break-inside: avoid;
+  }
+
+  .print-section-title {
+    font-size: 12pt;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #333;
+  }
+
+  .print-field {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 10pt;
+  }
+
+  .print-field-label {
+    font-weight: 600;
+  }
+
+  .print-field-value {
+    word-wrap: break-word;
+  }
+
+  /* Patient list table */
+  .print-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 9pt;
+  }
+
+  .print-table th,
+  .print-table td {
+    border: 1px solid #333;
+    padding: 6px 8px;
+    text-align: left;
+  }
+
+  .print-table th {
+    background-color: #f0f0f0 !important;
+    font-weight: bold;
+  }
+
+  .print-table tr {
+    page-break-inside: avoid;
+  }
+
+  /* Footer */
+  .print-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 8pt;
+    padding-top: 10px;
+    border-top: 1px solid #333;
+  }
+
+  /* Page breaks */
+  .page-break {
+    page-break-after: always;
+  }
+
+  /* Ensure dialog content is visible when printing */
+  [role="dialog"] {
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+
+  [role="dialog"] > div:last-child {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Remove scroll areas */
+  [data-radix-scroll-area-viewport] {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  /* Status badges */
+  .status-badge {
+    border: 1px solid #333;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 9pt;
+  }
+
+  /* Ensure proper spacing */
+  * {
+    box-shadow: none !important;
+  }
+}
