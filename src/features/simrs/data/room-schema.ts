@@ -33,8 +33,7 @@ export const roomFormSchema = z.object({
   
   floor: z
     .number({
-      required_error: 'Lantai tidak boleh kosong. Silakan masukkan nomor lantai.',
-      invalid_type_error: 'Lantai harus berupa angka.',
+      message: 'Lantai tidak boleh kosong. Silakan masukkan nomor lantai.',
     })
     .int('Lantai harus berupa angka bulat, bukan desimal.')
     .min(1, 'Lantai minimal adalah 1. Silakan masukkan angka yang valid.')
@@ -42,8 +41,7 @@ export const roomFormSchema = z.object({
   
   capacity: z
     .number({
-      required_error: 'Kapasitas tidak boleh kosong. Silakan masukkan jumlah kapasitas.',
-      invalid_type_error: 'Kapasitas harus berupa angka.',
+      message: 'Kapasitas tidak boleh kosong. Silakan masukkan jumlah kapasitas.',
     })
     .int('Kapasitas harus berupa angka bulat, bukan desimal.')
     .min(1, 'Kapasitas minimal adalah 1 orang. Silakan masukkan angka yang valid.')

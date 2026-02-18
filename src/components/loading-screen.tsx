@@ -3,7 +3,7 @@
  * Compact loading screen with animated logo
  */
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, type Variants } from 'framer-motion'
 import brandLogo from '@/assets/brand-icons/brand.png'
 
 interface LoadingScreenProps {
@@ -11,7 +11,7 @@ interface LoadingScreenProps {
   onLoadingComplete?: () => void
 }
 
-const logoVariants = {
+const logoVariants: Variants = {
   hidden: { 
     opacity: 0, 
     scale: 0.6,
@@ -38,7 +38,7 @@ const logoVariants = {
   },
 }
 
-const textVariants = {
+const textVariants: Variants = {
   hidden: { 
     opacity: 0, 
     y: 10,
@@ -61,7 +61,7 @@ const textVariants = {
   },
 }
 
-const pulseVariants = {
+const pulseVariants: Variants = {
   animate: {
     scale: [1, 1.08, 1],
     opacity: [0.9, 1, 0.9],
