@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import {
   Collapsible,
   CollapsibleContent,
@@ -58,8 +59,8 @@ export function NavGroup({ items }: NavGroupProps) {
   )
 }
 
-function NavBadge({ children }: { children: ReactNode }) {
-  return <Badge className='rounded-full px-1 py-0 text-xs'>{children}</Badge>
+function NavBadge({ children, className }: { children: ReactNode; className?: string }) {
+  return <Badge className={cn('rounded-full px-1 py-0 text-xs', className)}>{children}</Badge>
 }
 
 function SidebarMenuLink({ item, href }: { item: NavLink; href: string }) {
