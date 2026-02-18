@@ -34,13 +34,12 @@ import {
 
 export function NavGroup({ items }: NavGroupProps) {
   const { state, isMobile } = useSidebar()
-  const isCollapsed = state === 'collapsed'
   const location = useLocation()
   const href = location.pathname + location.search
 
   return (
-    <SidebarGroup className={isCollapsed ? 'items-center' : ''}>
-      <SidebarMenu className={isCollapsed ? 'items-center gap-2' : 'gap-1'}>
+    <SidebarGroup>
+      <SidebarMenu>
         {items.map((item) => {
           const key = `${item.title}-${item.url}`
 
@@ -64,24 +63,21 @@ function NavBadge({ children }: { children: ReactNode }) {
 }
 
 function SidebarMenuLink({ item, href }: { item: NavLink; href: string }) {
-  const { setOpenMobile, state } = useSidebar()
-  const isCollapsed = state === 'collapsed'
+  const { setOpenMobile } = useSidebar()
 
   return (
-    <SidebarMenuItem className={isCollapsed ? 'flex justify-center' : ''}>
+    <SidebarMenuItem>
       <SidebarMenuButton
         asChild
         isActive={checkIsActive(href, item)}
         tooltip={item.title}
-        className={isCollapsed ? '!p-0 justify-center items-center' : ''}
       >
         <Link 
           to={item.url} 
           onClick={() => setOpenMobile(false)}
-          className={isCollapsed ? 'justify-center items-center !p-0' : ''}
         >
           {item.icon && (
-            <item.icon className={isCollapsed ? 'size-7' : ''} />
+            <item.icon className='size-5 group-data-[collapsible=icon]:size-[22px]' />
           )}
           <span className='group-data-[collapsible=icon]:hidden'>{item.title}</span>
           {item.badge && <NavBadge className='group-data-[collapsible=icon]:hidden'>{item.badge}</NavBadge>}
@@ -98,8 +94,7 @@ function SidebarMenuCollapsible({
   item: NavCollapsible
   href: string
 }) {
-  const { setOpenMobile, state } = useSidebar()
-  const isCollapsed = state === 'collapsed'
+  const { setOpenMobile } = useSidebar()
 
   return (
     <Collapsible
@@ -107,14 +102,13 @@ function SidebarMenuCollapsible({
       defaultOpen={checkIsActive(href, item, true)}
       className='group/collapsible'
     >
-      <SidebarMenuItem className={isCollapsed ? 'flex justify-center' : ''}>
+      <SidebarMenuItem>
         <CollapsibleTrigger asChild>
           <SidebarMenuButton 
             tooltip={item.title}
-            className={isCollapsed ? '!p-0 justify-center items-center' : ''}
           >
             {item.icon && (
-              <item.icon className={isCollapsed ? 'size-7' : ''} />
+              <item.icon className='size-5 group-data-[collapsible=icon]:size-7' />
             )}
             <span className='group-data-[collapsible=icon]:hidden'>{item.title}</span>
             {item.badge && <NavBadge className='group-data-[collapsible=icon]:hidden'>{item.badge}</NavBadge>}
@@ -152,15 +146,14 @@ function SidebarMenuCollapsedDropdown({
   href: string
 }) {
   return (
-    <SidebarMenuItem className='flex justify-center'>
+    <SidebarMenuItem>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <SidebarMenuButton
             tooltip={item.title}
             isActive={checkIsActive(href, item)}
-            className='!p-0 justify-center items-center'
           >
-            {item.icon && <item.icon className='size-7' />}
+            {item.icon && <item.icon className='size-[22px]' />}
             <span className='hidden'>{item.title}</span>
             {item.badge && <span className='hidden'>{item.badge}</span>}
           </SidebarMenuButton>

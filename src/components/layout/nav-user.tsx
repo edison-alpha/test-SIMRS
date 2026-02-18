@@ -29,21 +29,20 @@ type NavUserProps = {
 }
 
 export function NavUser({ user }: NavUserProps) {
-  const { isMobile, state } = useSidebar()
-  const isCollapsed = state === 'collapsed'
+  const { isMobile } = useSidebar()
   const [open, setOpen] = useDialogState()
 
   return (
     <>
-      <SidebarMenu className={isCollapsed ? 'items-center' : ''}>
-        <SidebarMenuItem className={isCollapsed ? 'flex justify-center' : ''}>
+      <SidebarMenu>
+        <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton
                 size='lg'
-                className={`data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground ${isCollapsed ? 'justify-center !p-0' : ''}`}
+                className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
               >
-                <Avatar className={`rounded-lg ${isCollapsed ? 'h-10 w-10' : 'h-8 w-8'}`}>
+                <Avatar className='h-8 w-8 rounded-lg group-data-[collapsible=icon]:h-[34px] group-data-[collapsible=icon]:w-[34px]'>
                   <AvatarImage src={user.avatar} alt={user.name} />
                   <AvatarFallback className='rounded-lg'>AD</AvatarFallback>
                 </Avatar>

@@ -15,15 +15,15 @@ export function AppSidebar() {
   const { collapsible, variant } = useLayout()
   return (
     <Sidebar collapsible={collapsible} variant={variant}>
-      <SidebarHeader className='group-data-[collapsible=icon]:items-center'>
+      <SidebarHeader>
         <AppTitle />
       </SidebarHeader>
-      <SidebarContent className='group-data-[collapsible=icon]:mt-4 group-data-[collapsible=icon]:items-center'>
+      <SidebarContent className='group-data-[collapsible=icon]:mt-4'>
         {sidebarData.navGroups.map((props) => (
           <NavGroup key={props.title} {...props} />
         ))}
       </SidebarContent>
-      <SidebarFooter className='group-data-[collapsible=icon]:items-center'>
+      <SidebarFooter>
         <NavUser user={sidebarData.user} />
       </SidebarFooter>
       <SidebarRail />

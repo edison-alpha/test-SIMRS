@@ -19,11 +19,11 @@ export function AppTitle() {
           asChild
         >
           <Link to='/'>
-            <div className={`flex items-center justify-center rounded-lg ${isCollapsed ? 'size-11' : 'size-8'}`}>
+            <div className={`flex items-center justify-center rounded-lg ${isCollapsed ? 'size-[38px]' : 'size-8'}`}>
               <img 
                 src={brandLogo} 
                 alt='Brand Logo' 
-                className={`object-contain ${isCollapsed ? 'size-11' : 'size-8'}`} 
+                className={`object-contain ${isCollapsed ? 'size-[38px]' : 'size-8'}`} 
               />
             </div>
             <div className='grid flex-1 text-start text-m leading-tight group-data-[collapsible=icon]:hidden'>
