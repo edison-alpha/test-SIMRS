@@ -253,10 +253,12 @@ export function AdmissionForm() {
         if (values.nik !== editingPatient.nik) {
           const existingPatient = getPatientByNIK(values.nik)
           if (existingPatient) {
-            toast.error('NIK sudah terdaftar dalam sistem')
+            toast.error('NIK sudah terdaftar', {
+              description: `NIK ini sudah digunakan oleh pasien dengan No. RM: ${existingPatient.noRM}. Silakan periksa kembali NIK yang dimasukkan.`,
+            })
             form.setError('nik', {
               type: 'manual',
-              message: 'NIK sudah terdaftar',
+              message: 'NIK sudah terdaftar dalam sistem',
             })
             return
           }
@@ -300,17 +302,21 @@ export function AdmissionForm() {
           // Navigate back to patient list
           navigate('/simrs/daftar-pasien')
         } else {
-          toast.error('Gagal memperbarui data pasien')
+          toast.error('Gagal memperbarui data pasien', {
+            description: 'Terjadi kesalahan saat menyimpan perubahan. Silakan coba lagi atau hubungi administrator.',
+          })
         }
       } else {
         // Create mode: Add new patient
         // Requirement 1.7: Check NIK uniqueness
         const existingPatient = getPatientByNIK(values.nik)
         if (existingPatient) {
-          toast.error('NIK sudah terdaftar dalam sistem')
+          toast.error('NIK sudah terdaftar', {
+            description: `NIK ini sudah digunakan oleh pasien dengan No. RM: ${existingPatient.noRM}. Silakan periksa kembali NIK yang dimasukkan.`,
+          })
           form.setError('nik', {
             type: 'manual',
-            message: 'NIK sudah terdaftar',
+            message: 'NIK sudah terdaftar dalam sistem',
           })
           return
         }
@@ -350,8 +356,9 @@ export function AdmissionForm() {
         navigate('/simrs/daftar-pasien')
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Terjadi kesalahan yang tidak diketahui'
       toast.error(isEditMode ? 'Gagal memperbarui data pasien' : 'Gagal mendaftarkan pasien', {
-        description: error instanceof Error ? error.message : 'Terjadi kesalahan',
+        description: `${errorMessage}. Silakan periksa kembali data yang diisi atau hubungi administrator.`,
       })
       console.error('Error saving patient:', error)
     }
@@ -360,14 +367,18 @@ export function AdmissionForm() {
   const handleSaveDraft = () => {
     // Draft functionality only available in create mode
     if (isEditMode) {
-      toast.info('Draft tidak tersedia dalam mode edit')
+      toast.info('Fitur draft tidak tersedia dalam mode edit', {
+        description: 'Anda sedang mengedit data pasien yang sudah ada.',
+      })
       return
     }
     
     const values = form.getValues()
     localStorage.setItem('admission-form-draft', JSON.stringify(values))
     setIsDraft(true)
-    toast.success('Draft formulir disimpan')
+    toast.success('Draft formulir berhasil disimpan', {
+      description: 'Anda dapat melanjutkan pengisian formulir nanti.',
+    })
   }
 
   const handleClearDraft = () => {
@@ -379,7 +390,9 @@ export function AdmissionForm() {
     localStorage.removeItem('admission-form-draft')
     setIsDraft(false)
     form.reset()
-    toast.info('Draft formulir dihapus')
+    toast.info('Draft formulir berhasil dihapus', {
+      description: 'Formulir telah dikosongkan.',
+    })
   }
 
   return (

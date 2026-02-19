@@ -49,7 +49,10 @@ export function PatientBulkActions<TData>({
       )
       table.resetRowSelection()
     } catch (error) {
-      toast.error('Gagal mengekspor data pasien.')
+      const errorMessage = error instanceof Error ? error.message : 'Terjadi kesalahan yang tidak diketahui'
+      toast.error('Gagal mengekspor data pasien', {
+        description: `${errorMessage}. Silakan coba lagi atau hubungi administrator jika masalah berlanjut.`,
+      })
       console.error('Export error:', error)
     }
   }
@@ -83,7 +86,10 @@ export function PatientBulkActions<TData>({
       
       table.resetRowSelection()
     } catch (error) {
-      toast.error('Gagal mengubah status pasien.')
+      const errorMessage = error instanceof Error ? error.message : 'Terjadi kesalahan yang tidak diketahui'
+      toast.error('Gagal mengubah status pasien', {
+        description: `${errorMessage}. Silakan coba lagi atau hubungi administrator jika masalah berlanjut.`,
+      })
       console.error('Status update error:', error)
     }
   }

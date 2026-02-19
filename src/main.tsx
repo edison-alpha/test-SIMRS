@@ -7,7 +7,7 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 
 // App Component
-import { AppWithLoading } from './app-with-loading'
+import { App } from './App'
 
 // Styles
 import './styles/index.css'
@@ -21,7 +21,7 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <AppWithLoading />
+      <App />
     </StrictMode>
   )
 }

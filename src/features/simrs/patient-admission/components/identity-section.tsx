@@ -50,7 +50,7 @@ export function IdentitySection({ isEditMode = false }: { isEditMode?: boolean }
   // Generate and display No. RM (only in create mode)
   const noRM = !isEditMode ? generateNoRM() : null
   
-  // Watch NIK for uniqueness check
+  // Watch NIK for uniqueness check NIK HARUS 16
   const nik = form.watch('nik')
   const nikExists = nik && nik.length === 16 ? getPatientByNIK(nik) : null
   

@@ -3,8 +3,11 @@
  * React Router setup with all routes
  */
 
-import { createBrowserRouter } from 'react-router-dom'
-import { App } from './App'
+import { createBrowserRouter, Outlet } from 'react-router-dom'
+
+// Components
+import { NavigationProgress } from '@/components/navigation-progress'
+import { Toaster } from '@/components/ui/sonner'
 
 // Layouts
 import { AuthenticatedLayout } from './layouts/authenticated-layout'
@@ -26,12 +29,24 @@ import { PatientAdmission } from '@/features/simrs/patient-admission'
 import { RoomManagement } from '@/features/simrs/room-management'
 import { ErrorPage } from '@/pages/errors/error-page'
 
-export const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    errorElement: <GeneralError />,
-    children: [
+// Root layout component dengan NavigationProgress
+function RootLayout() {
+  return (
+    <>
+      <NavigationProgress />
+      <Outlet />
+      <Toaster duration={5000} />
+    </>
+  )
+}
+
+export const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <RootLayout />,
+      errorElement: <GeneralError />,
+      children: [
       // Error routes (public)
       { path: '401', element: <Error401 /> },
       { path: '403', element: <Error403 /> },
@@ -57,4 +72,10 @@ export const router = createBrowserRouter([
       { path: '*', element: <NotFoundError /> },
     ],
   },
-])
+  ],
+  {
+    future: {
+      v7_startTransition: true,
+    },
+  }
+)
