@@ -13,56 +13,56 @@ export const genderSchema = z.union([
   z.literal('Laki-laki'),
   z.literal('Perempuan'),
 ], {
-  errorMap: () => ({ message: 'Jenis kelamin belum dipilih. Silakan pilih Laki-laki atau Perempuan.' }),
+  message: 'Jenis kelamin belum dipilih. Silakan pilih Laki-laki atau Perempuan.',
 })
 
 /**
  * Cara Masuk (Admission Method) enum schema
  */
 export const caraMasukSchema = z.enum(['IGD', 'Rawat Jalan-Poli', 'Rujukan Luar'], {
-  errorMap: () => ({ message: 'Cara masuk belum dipilih. Silakan pilih metode masuk pasien.' }),
+  message: 'Cara masuk belum dipilih. Silakan pilih metode masuk pasien.',
 })
 
 /**
  * Asal Rujukan (Referral Source) enum schema
  */
 export const asalRujukanSchema = z.enum(['Puskesmas', 'RS Lain', 'Klinik', 'Dokter Pribadi'], {
-  errorMap: () => ({ message: 'Asal rujukan belum dipilih. Silakan pilih sumber rujukan pasien.' }),
+  message: 'Asal rujukan belum dipilih. Silakan pilih sumber rujukan pasien.',
 })
 
 /**
  * Kelas Perawatan (Care Class) enum schema
  */
 export const kelasPerawatanSchema = z.enum(['VVIP', 'VIP', 'Kelas 1', 'Kelas 2', 'Kelas 3', 'ICU'], {
-  errorMap: () => ({ message: 'Kelas perawatan belum dipilih. Silakan pilih kelas perawatan yang sesuai.' }),
+  message: 'Kelas perawatan belum dipilih. Silakan pilih kelas perawatan yang sesuai.',
 })
 
 /**
  * Hubungan dengan Pasien (Relationship with Patient) enum schema
  */
 export const hubunganDenganPasienSchema = z.enum(['Suami', 'Istri', 'Orang Tua', 'Anak', 'Saudara', 'Lainnya'], {
-  errorMap: () => ({ message: 'Hubungan dengan pasien belum dipilih. Silakan pilih hubungan yang sesuai.' }),
+  message: 'Hubungan dengan pasien belum dipilih. Silakan pilih hubungan yang sesuai.',
 })
 
 /**
  * Cara Bayar (Payment Method) enum schema
  */
 export const caraBayarSchema = z.enum(['Umum-Pribadi', 'BPJS Kesehatan', 'Asuransi Swasta', 'Jaminan Perusahaan'], {
-  errorMap: () => ({ message: 'Cara bayar belum dipilih. Silakan pilih metode pembayaran yang sesuai.' }),
+  message: 'Cara bayar belum dipilih. Silakan pilih metode pembayaran yang sesuai.',
 })
 
 /**
  * Kelas Hak Rawat (BPJS Care Class Entitlement) enum schema
  */
 export const kelasHakRawatSchema = z.enum(['Kelas 1', 'Kelas 2', 'Kelas 3'], {
-  errorMap: () => ({ message: 'Kelas hak rawat belum dipilih. Untuk BPJS Kesehatan, silakan pilih kelas hak rawat.' }),
+  message: 'Kelas hak rawat belum dipilih. Untuk BPJS Kesehatan, silakan pilih kelas hak rawat.',
 })
 
 /**
  * Patient Status enum schema
  */
 export const patientStatusSchema = z.enum(['Aktif', 'Keluar'], {
-  errorMap: () => ({ message: 'Status pasien tidak valid. Pilih Aktif atau Keluar.' }),
+  message: 'Status pasien tidak valid. Pilih Aktif atau Keluar.',
 })
 
 /**
@@ -98,14 +98,13 @@ export const admissionSchema = z.object({
     .optional(),
   
   tanggalLahir: z
-    .union([z.date(), z.undefined()])
-    .refine((val) => val !== undefined, {
-      message: 'Tanggal lahir wajib diisi. Silakan pilih tanggal lahir pasien.',
+    .date({
+      required_error: 'Tanggal lahir wajib diisi. Silakan pilih tanggal lahir pasien.',
+      invalid_type_error: 'Format tanggal lahir tidak valid. Silakan pilih tanggal dari kalender.',
     })
-    .refine((val) => val === undefined || val <= new Date(), {
+    .refine((val) => val <= new Date(), {
       message: 'Tanggal lahir tidak boleh di masa depan. Silakan pilih tanggal yang benar.',
-    })
-    .transform((val) => val as Date),
+    }),
   
   jenisKelamin: genderSchema,
   
@@ -122,11 +121,10 @@ export const admissionSchema = z.object({
   // ===== VISIT REGISTRATION DATA (1.2) =====
   // nomorRegistrasi is auto-generated, not in form
   tanggalJamMasuk: z
-    .union([z.date(), z.undefined()])
-    .refine((val) => val !== undefined, {
-      message: 'Tanggal dan jam masuk wajib diisi. Silakan pilih tanggal dan jam masuk pasien.',
-    })
-    .transform((val) => val as Date),
+    .date({
+      required_error: 'Tanggal dan jam masuk wajib diisi. Silakan pilih tanggal dan jam masuk pasien.',
+      invalid_type_error: 'Format tanggal dan jam masuk tidak valid. Silakan pilih tanggal dari kalender.',
+    }),
   
   caraMasuk: caraMasukSchema,
   
@@ -158,11 +156,10 @@ export const admissionSchema = z.object({
     .optional(),
   
   tanggalSuratRujukan: z
-    .union([z.date(), z.undefined()])
-    .optional()
-    .refine((val) => val === undefined || val === null || val instanceof Date, {
-      message: 'Format tanggal surat rujukan tidak valid. Silakan pilih tanggal dari kalender.',
-    }),
+    .date({
+      invalid_type_error: 'Format tanggal surat rujukan tidak valid. Silakan pilih tanggal dari kalender.',
+    })
+    .optional(),
   
   diagnosaRujukan: z
     .string()
@@ -215,7 +212,7 @@ export const admissionSchema = z.object({
   // ===== LEGACY FIELDS (for backward compatibility) =====
   // Keep old fields as optional to maintain compatibility
   name: z.string().optional(),
-  dateOfBirth: z.union([z.date(), z.undefined()]).optional(),
+  dateOfBirth: z.date().optional(),
   gender: genderSchema.optional(),
   address: z.string().optional(),
   phoneNumber: z.string().optional(),
@@ -266,7 +263,7 @@ export const patientSchema = admissionSchema.extend({
   noRM: z.string(), // Auto-generated medical record number
   nomorRegistrasi: z.string(), // Auto-generated registration number
   status: patientStatusSchema.default('Aktif'),
-  tanggalKeluar: z.union([z.date(), z.undefined()]).optional(),
+  tanggalKeluar: z.date().optional(),
   registrationDate: z.date(), // Legacy field
   createdAt: z.date(),
   updatedAt: z.date(),

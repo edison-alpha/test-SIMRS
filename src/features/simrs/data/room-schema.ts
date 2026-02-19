@@ -14,7 +14,7 @@ export const roomStatusSchema = z.union([
   z.literal('Maintenance'),
   z.literal('Reservasi'),
 ], {
-  errorMap: () => ({ message: 'Status ruangan tidak valid. Silakan pilih status yang sesuai.' }),
+  message: 'Status ruangan tidak valid. Silakan pilih status yang sesuai.',
 })
 
 /**

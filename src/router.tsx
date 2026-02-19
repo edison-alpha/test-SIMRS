@@ -40,13 +40,12 @@ function RootLayout() {
   )
 }
 
-export const router = createBrowserRouter(
-  [
-    {
-      path: '/',
-      element: <RootLayout />,
-      errorElement: <GeneralError />,
-      children: [
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootLayout />,
+    errorElement: <GeneralError />,
+    children: [
       // Error routes (public)
       { path: '401', element: <Error401 /> },
       { path: '403', element: <Error403 /> },
@@ -72,10 +71,4 @@ export const router = createBrowserRouter(
       { path: '*', element: <NotFoundError /> },
     ],
   },
-  ],
-  {
-    future: {
-      v7_startTransition: true,
-    },
-  }
-)
+])
