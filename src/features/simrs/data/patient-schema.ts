@@ -99,8 +99,7 @@ export const admissionSchema = z.object({
   
   tanggalLahir: z
     .date({
-      required_error: 'Tanggal lahir wajib diisi. Silakan pilih tanggal lahir pasien.',
-      invalid_type_error: 'Format tanggal lahir tidak valid. Silakan pilih tanggal dari kalender.',
+      message: 'Tanggal lahir wajib diisi. Silakan pilih tanggal lahir pasien.',
     })
     .refine((val) => val <= new Date(), {
       message: 'Tanggal lahir tidak boleh di masa depan. Silakan pilih tanggal yang benar.',
@@ -122,8 +121,7 @@ export const admissionSchema = z.object({
   // nomorRegistrasi is auto-generated, not in form
   tanggalJamMasuk: z
     .date({
-      required_error: 'Tanggal dan jam masuk wajib diisi. Silakan pilih tanggal dan jam masuk pasien.',
-      invalid_type_error: 'Format tanggal dan jam masuk tidak valid. Silakan pilih tanggal dari kalender.',
+      message: 'Tanggal dan jam masuk wajib diisi. Silakan pilih tanggal dan jam masuk pasien.',
     }),
   
   caraMasuk: caraMasukSchema,
@@ -156,9 +154,7 @@ export const admissionSchema = z.object({
     .optional(),
   
   tanggalSuratRujukan: z
-    .date({
-      invalid_type_error: 'Format tanggal surat rujukan tidak valid. Silakan pilih tanggal dari kalender.',
-    })
+    .date()
     .optional(),
   
   diagnosaRujukan: z
